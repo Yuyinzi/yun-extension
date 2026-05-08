@@ -245,11 +245,7 @@
       removeOverlay();
       reply({ ok:true });
     }
-    if (msg.type === 'CLICK_NEXT' || msg.type === 'TEST_CLICK_NEXT') {
-      if (msg.type === 'TEST_CLICK_NEXT') {
-        console.log('[Course Autoplay] TEST: forcing click next');
-        hasClickedNext = false;
-      }
+    if (msg.type === 'CLICK_NEXT') {
       clickNext();
       reply({ ok:true });
     }

@@ -172,28 +172,3 @@ input:disabled + .slider {
   color: #c45a5a;
 }
 
-/* Test button */
-#test-btn {
-  display: none;
-  width: 100%;
-  padding: 10px 0;
-  border: 1px solid #2a2e33;
-  border-radius: 8px;
-  background: transparent;
-  color: #8a8580;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-#test-btn:hover {
-  border-color: #e8a838;
-  color: #e8a838;
-  background: rgba(232, 168, 56, 0.05);
-}
-
-#test-btn:active {
-  transform: scale(0.98);
-}

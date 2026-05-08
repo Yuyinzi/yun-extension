@@ -23,10 +23,6 @@
     "message": "状态",
     "description": "状态标签"
   },
-  "btnTest": {
-    "message": "测试：立即点击下一节",
-    "description": "测试按钮文字"
-  },
   "statusChecking": {
     "message": "检测中...",
     "description": "初始状态"
@@ -54,22 +50,6 @@
   "statusInitError": {
     "message": "初始化错误",
     "description": "弹窗初始化失败"
-  },
-  "statusTesting": {
-    "message": "测试中...",
-    "description": "测试运行中"
-  },
-  "statusTestSent": {
-    "message": "测试已发送",
-    "description": "测试消息已发送"
-  },
-  "statusTestRetry": {
-    "message": "重试 $1/4",
-    "description": "测试重试状态，$1 为重试次数"
-  },
-  "statusTestFailed": {
-    "message": "失败——请刷新页面",
-    "description": "测试失败后的状态"
   },
   "overlayOn": {
     "message": "自动播放已开启",

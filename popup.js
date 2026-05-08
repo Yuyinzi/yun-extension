@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const switchLabel = document.getElementById('switch-label');
   const statusEl = document.getElementById('status');
   const signalDot = document.getElementById('signal-dot');
-  const testBtn = document.getElementById('test-btn');
-  if (testBtn) testBtn.textContent = _('btnTest');
 
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -65,45 +63,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
 
-    testBtn.addEventListener('click', async () => {
-      statusEl.textContent = _('statusTesting');
-      statusEl.className = 'status-value';
-      for (let i = 0; i < 5; i++) {
-        try {
-          await chrome.tabs.sendMessage(tabId, { type: 'TEST_CLICK_NEXT' });
-          statusEl.textContent = _('statusTestSent');
-          statusEl.className = 'status-value active';
-          setTimeout(() => {
-            if (currentState) {
-              statusEl.textContent = _('statusArmed');
-              statusEl.className = 'status-value active';
-            }
-          }, 1500);
-          return;
-        } catch (e) {
-          if (i < 4) {
-            statusEl.textContent = _('statusTestRetry', [(i + 1).toString()]);
-            await new Promise(r => setTimeout(r, 500));
-          } else {
-            statusEl.textContent = _('statusTestFailed');
-            statusEl.className = 'status-value error';
-          }
-        }
-      }
-    });
-
     function updateUI(enabled) {
       toggleInput.checked = enabled;
       if (enabled) {
         statusEl.textContent = _('statusArmed');
         statusEl.className = 'status-value active';
         signalDot.classList.add('active');
-        testBtn.style.display = 'block';
       } else {
         statusEl.textContent = _('statusStandby');
         statusEl.className = 'status-value';
         signalDot.classList.remove('active');
-        testBtn.style.display = 'none';
       }
     }
   } catch (e) {
