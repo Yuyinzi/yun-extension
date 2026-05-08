@@ -12,25 +12,87 @@
 
   let autoplayEnabled = false;
   let overlayEl = null;
+  let hideTimeout = null;
   let hasClickedNext = false;
 
   function createOverlay(text) {
-    if (overlayEl) { overlayEl.textContent = text || 'Autoplay ON'; return; }
+    if (overlayEl) {
+      updateOverlay(text || 'Autoplay ON');
+      return;
+    }
     overlayEl = document.createElement('div');
-    overlayEl.id = 'autoplay-overlay';
+    overlayEl.id = 'autoplay-indicator';
     overlayEl.style.cssText = `
-      position:fixed;top:16px;right:16px;z-index:999999;
-      background:#22c55e;color:#fff;padding:8px 14px;
-      border-radius:6px;font-family:sans-serif;font-size:13px;
-      font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,0.2);
-      pointer-events:none;
+      position:fixed;bottom:20px;right:20px;z-index:999999;
+      display:flex;align-items:center;gap:8px;
+      padding:8px 14px;
+      background:rgba(20,22,24,0.85);backdrop-filter:blur(12px);
+      border:1px solid rgba(232,168,56,0.3);border-radius:24px;
+      font-family:'SF Pro Display',-apple-system,sans-serif;font-size:12px;
+      font-weight:500;color:#e8a838;letter-spacing:0.2px;
+      box-shadow:0 4px 20px rgba(0,0,0,0.3);
+      pointer-events:auto;cursor:default;
+      transition:opacity 0.4s ease,transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      opacity:0;transform:translateY(12px) scale(0.95);
     `;
-    overlayEl.textContent = text || 'Autoplay ON';
+    overlayEl.innerHTML = `
+      <span style="width:6px;height:6px;border-radius:50%;background:#e8a838;box-shadow:0 0 6px rgba(232,168,56,0.6);animation:pulse 2s ease-in-out infinite;display:inline-block;"></span>
+      <span id="autoplay-indicator-text">${text || 'Autoplay ON'}</span>
+    `;
+    // Inject pulse keyframe if not present
+    if (!document.getElementById('autoplay-indicator-styles')) {
+      const style = document.createElement('style');
+      style.id = 'autoplay-indicator-styles';
+      style.textContent = `
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+      `;
+      document.head.appendChild(style);
+    }
     document.body.appendChild(overlayEl);
+    // Trigger entrance animation
+    requestAnimationFrame(() => {
+      overlayEl.style.opacity = '1';
+      overlayEl.style.transform = 'translateY(0) scale(1)';
+    });
+    // Auto-hide after 3s
+    scheduleHide();
+    // Show on hover
+    overlayEl.addEventListener('mouseenter', () => {
+      clearTimeout(hideTimeout);
+      overlayEl.style.opacity = '1';
+      overlayEl.style.transform = 'translateY(0) scale(1)';
+    });
+    overlayEl.addEventListener('mouseleave', scheduleHide);
+  }
+
+  function updateOverlay(text) {
+    if (!overlayEl) return;
+    const txt = overlayEl.querySelector('#autoplay-indicator-text');
+    if (txt) txt.textContent = text;
+    overlayEl.style.opacity = '1';
+    overlayEl.style.transform = 'translateY(0) scale(1)';
+    scheduleHide();
+  }
+
+  function scheduleHide() {
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      if (overlayEl && autoplayEnabled) {
+        overlayEl.style.opacity = '0';
+        overlayEl.style.transform = 'translateY(12px) scale(0.95)';
+      }
+    }, 3000);
   }
 
   function removeOverlay() {
-    if (overlayEl) { overlayEl.remove(); overlayEl = null; }
+    if (hideTimeout) clearTimeout(hideTimeout);
+    if (overlayEl) {
+      overlayEl.style.opacity = '0';
+      overlayEl.style.transform = 'translateY(12px) scale(0.95)';
+      setTimeout(() => {
+        if (overlayEl) { overlayEl.remove(); overlayEl = null; }
+      }, 400);
+    }
   }
 
   function isVisible(el) {
