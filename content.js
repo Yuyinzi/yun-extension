@@ -27,10 +27,10 @@
       display:flex;align-items:center;gap:8px;
       padding:8px 14px;
       background:rgba(20,22,24,0.85);backdrop-filter:blur(12px);
-      border:1px solid rgba(232,168,56,0.3);border-radius:24px;
+      border:1px solid rgba(232,168,56,0.35);border-radius:24px;
       font-family:'SF Pro Display',-apple-system,sans-serif;font-size:12px;
       font-weight:500;color:#e8a838;letter-spacing:0.2px;
-      box-shadow:0 4px 20px rgba(0,0,0,0.3);
+      box-shadow:0 4px 24px rgba(0,0,0,0.4),0 0 0 1px rgba(232,168,56,0.1);
       pointer-events:auto;cursor:default;
       transition:opacity 0.4s ease,transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
       opacity:0;transform:translateY(12px) scale(0.95);
@@ -54,7 +54,7 @@
       overlayEl.style.opacity = '1';
       overlayEl.style.transform = 'translateY(0) scale(1)';
     });
-    // Auto-hide after 3s
+    // Auto-hide after 5s
     scheduleHide();
     // Show on hover
     overlayEl.addEventListener('mouseenter', () => {
@@ -81,7 +81,7 @@
         overlayEl.style.opacity = '0';
         overlayEl.style.transform = 'translateY(12px) scale(0.95)';
       }
-    }, 3000);
+    }, 5000);
   }
 
   function removeOverlay() {
