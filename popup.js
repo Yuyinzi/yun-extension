@@ -3,11 +3,22 @@
 const _ = chrome.i18n.getMessage.bind(chrome.i18n);
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // Set static text from locale strings
+  const titleEl = document.getElementById('popup-title');
+  if (titleEl) titleEl.textContent = _('popupTitle');
+  const subtitleEl = document.getElementById('popup-subtitle');
+  if (subtitleEl) subtitleEl.textContent = _('popupSubtitle');
+  const labelAutoEl = document.getElementById('label-autoplay');
+  if (labelAutoEl) labelAutoEl.textContent = _('labelAutoplay');
+  const labelStatusEl = document.getElementById('label-status');
+  if (labelStatusEl) labelStatusEl.textContent = _('labelStatus');
+
   const toggleInput = document.getElementById('toggle-input');
   const switchLabel = document.getElementById('switch-label');
   const statusEl = document.getElementById('status');
   const signalDot = document.getElementById('signal-dot');
   const testBtn = document.getElementById('test-btn');
+  if (testBtn) testBtn.textContent = _('btnTest');
 
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });

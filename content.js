@@ -14,6 +14,7 @@
   let overlayEl = null;
   let hideTimeout = null;
   let hasClickedNext = false;
+  let hasClickedPlay = false;
 
   const _ = (typeof chrome !== 'undefined' && chrome.i18n)
     ? chrome.i18n.getMessage.bind(chrome.i18n)
@@ -168,11 +169,53 @@
     return false;
   }
 
-  // Poll every 2 seconds
+  // Recursively find and click the big play button in nested iframes
+  function findAndClickPlayButton(win) {
+    for (const iframe of win.document.querySelectorAll('iframe')) {
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc) continue;
+        const btn = doc.querySelector('.vjs-big-play-button');
+        if (btn && isVisible(btn)) {
+          console.log('[Course Autoplay] Clicking big play button');
+          btn.click();
+          return true;
+        }
+        // Also check the video element's paused state as a hint
+        const video = doc.querySelector('video');
+        if (video && video.paused && !hasClickedPlay) {
+          // Try clicking the video itself if no big play button but video is paused
+          const playBtn = doc.querySelector('.vjs-play-control, .vjs-big-play-button');
+          if (playBtn && isVisible(playBtn)) {
+            console.log('[Course Autoplay] Clicking play control');
+            playBtn.click();
+            return true;
+          }
+        }
+        if (doc.querySelector('iframe')) {
+          const nested = findAndClickPlayButton(iframe.contentWindow);
+          if (nested) return true;
+        }
+      } catch (e) {}
+    }
+    return false;
+  }
+
+  // Poll every 2 seconds for video end → click next
   setInterval(() => {
     if (!autoplayEnabled || hasClickedNext) return;
     if (checkFrames(window)) clickNext();
   }, 2000);
+
+  // Poll every 3 seconds for big play button → click play
+  setInterval(() => {
+    if (!autoplayEnabled) return;
+    if (findAndClickPlayButton(window)) {
+      hasClickedPlay = true;
+      // Reset after 10s in case user goes back to a previous video
+      setTimeout(() => { hasClickedPlay = false; }, 10000);
+    }
+  }, 3000);
 
   // Watch for ans-job-finished (backup signal)
   new MutationObserver(() => {
@@ -193,6 +236,7 @@
     if (msg.type === 'ENABLE_AUTOPLAY') {
       autoplayEnabled = true;
       hasClickedNext = false;
+      hasClickedPlay = false;
       createOverlay();
       reply({ ok:true });
     }
@@ -229,6 +273,7 @@
         console.log('[Course Autoplay] State sync: autoplay is ON');
         autoplayEnabled = true;
         hasClickedNext = false;
+        hasClickedPlay = false;
         createOverlay();
       } else {
         console.log('[Course Autoplay] State sync: autoplay is OFF');
