@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --check /Users/littlemay/work/chrome-extension/background.js)",
+      "Bash(node --check /Users/littlemay/work/chrome-extension/popup.js)",
+      "Bash(echo \"EXIT_CODE: $?\")",
+      "Bash(python3 *)",
+      "Bash(node --check /Users/littlemay/work/chrome-extension/content.js)"
+    ]
+  }
+}

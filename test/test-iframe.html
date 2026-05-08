@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Test Iframe — Video Player</title>
+  <style>
+    body { margin: 0; padding: 10px; background: #1a1a1a; }
+    video { width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <video id="iframe-video" controls autoplay muted>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+  </video>
+  <script>
+    console.log('[Test Iframe] Loaded');
+    const video = document.getElementById('iframe-video');
+    video.addEventListener('ended', () => {
+      console.log('[Test Iframe] Video ended');
+    });
+  </script>
+</body>
+</html>

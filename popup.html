@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Course Autoplay</h1>
+    <p class="subtitle">Auto-advance course videos</p>
+
+    <div class="toggle-row">
+      <span class="label">Autoplay</span>
+      <button id="toggle-btn" class="toggle-off">OFF</button>
+    </div>
+
+    <button id="test-btn" style="display:none;margin-top:12px;width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;background:#f9fafb;cursor:pointer;font-size:12px;color:#666;">Test: Click Next Now</button>
+
+    <p id="status" class="status">Checking...</p>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
