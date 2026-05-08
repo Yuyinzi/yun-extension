@@ -142,6 +142,11 @@
     } else {
       console.warn('[Course Autoplay] Next button not found');
       createOverlay(_('overlayNotFound'));
+      // Set cooldown so we don't spam retries on the last chapter
+      hasClickedNext = true;
+      setTimeout(() => {
+        hasClickedNext = false;
+      }, 30000);
     }
   }
 
