@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Course Autoplay",
+  "name": "__MSG_extName__",
   "version": "1.0.0",
-  "description": "Auto-advance to the next chapter when a course video ends",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "permissions": ["storage", "activeTab"],
   "host_permissions": ["https://mooc1.s.ecust.edu.cn/mooc-ans/*"],
   "content_scripts": [

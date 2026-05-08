@@ -1,0 +1,86 @@
+{
+  "extName": {
+    "message": "Course Autoplay",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Auto-advance to the next chapter when a course video ends",
+    "description": "Extension description"
+  },
+  "popupTitle": {
+    "message": "Course Autoplay",
+    "description": "Popup header title"
+  },
+  "popupSubtitle": {
+    "message": "Auto-advance course videos",
+    "description": "Popup subtitle"
+  },
+  "labelAutoplay": {
+    "message": "Autoplay",
+    "description": "Toggle label"
+  },
+  "labelStatus": {
+    "message": "Status",
+    "description": "Status readout label"
+  },
+  "btnTest": {
+    "message": "Test: Click Next Now",
+    "description": "Test button text"
+  },
+  "statusChecking": {
+    "message": "checking...",
+    "description": "Initial status while loading"
+  },
+  "statusArmed": {
+    "message": "armed",
+    "description": "Status when autoplay is enabled"
+  },
+  "statusStandby": {
+    "message": "standby",
+    "description": "Status when autoplay is disabled"
+  },
+  "statusNoTab": {
+    "message": "no tab",
+    "description": "Error when no active tab found"
+  },
+  "statusNotCoursePage": {
+    "message": "not on course page",
+    "description": "Error when not on a course page"
+  },
+  "statusError": {
+    "message": "error",
+    "description": "Generic error status"
+  },
+  "statusInitError": {
+    "message": "init error",
+    "description": "Popup initialization error"
+  },
+  "statusTesting": {
+    "message": "testing...",
+    "description": "Status while test is running"
+  },
+  "statusTestSent": {
+    "message": "test sent",
+    "description": "Status after test message sent"
+  },
+  "statusTestRetry": {
+    "message": "retry $1/4",
+    "description": "Status during test retry, $1 is the retry count"
+  },
+  "statusTestFailed": {
+    "message": "failed — refresh page",
+    "description": "Status when test fails after all retries"
+  },
+  "overlayOn": {
+    "message": "Autoplay ON",
+    "description": "Overlay text when autoplay is enabled"
+  },
+  "overlayAdvancing": {
+    "message": "Advancing...",
+    "description": "Overlay text when clicking next chapter"
+  },
+  "overlayNotFound": {
+    "message": "Next button not found",
+    "description": "Overlay text when next button cannot be found"
+  }
+}

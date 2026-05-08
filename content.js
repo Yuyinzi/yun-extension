@@ -15,9 +15,13 @@
   let hideTimeout = null;
   let hasClickedNext = false;
 
+  const _ = (typeof chrome !== 'undefined' && chrome.i18n)
+    ? chrome.i18n.getMessage.bind(chrome.i18n)
+    : (key) => key;
+
   function createOverlay(text) {
     if (overlayEl) {
-      updateOverlay(text || 'Autoplay ON');
+      updateOverlay(text || _('overlayOn'));
       return;
     }
     overlayEl = document.createElement('div');
@@ -37,7 +41,7 @@
     `;
     overlayEl.innerHTML = `
       <span style="width:6px;height:6px;border-radius:50%;background:#e8a838;box-shadow:0 0 6px rgba(232,168,56,0.6);animation:pulse 2s ease-in-out infinite;display:inline-block;"></span>
-      <span id="autoplay-indicator-text">${text || 'Autoplay ON'}</span>
+      <span id="autoplay-indicator-text">${text || _('overlayOn')}</span>
     `;
     // Inject pulse keyframe if not present
     if (!document.getElementById('autoplay-indicator-styles')) {
@@ -125,18 +129,18 @@
     if (btn) {
       hasClickedNext = true;
       console.log('[Course Autoplay] Clicking next button:', btn);
-      createOverlay('Advancing...');
+      createOverlay(_('overlayAdvancing'));
       btn.click();
 
       // Reset after 5 seconds — by then the new page should have loaded
       setTimeout(() => {
         hasClickedNext = false;
         console.log('[Course Autoplay] Reset after navigation');
-        if (autoplayEnabled) createOverlay('Autoplay ON');
+        if (autoplayEnabled) createOverlay(_('overlayOn'));
       }, 5000);
     } else {
       console.warn('[Course Autoplay] Next button not found');
-      createOverlay('Next button not found');
+      createOverlay(_('overlayNotFound'));
     }
   }
 

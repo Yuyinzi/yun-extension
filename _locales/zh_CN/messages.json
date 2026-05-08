@@ -1,0 +1,86 @@
+{
+  "extName": {
+    "message": "课程自动播放",
+    "description": "扩展名称"
+  },
+  "extDescription": {
+    "message": "视频结束时自动跳转到下一章节",
+    "description": "扩展描述"
+  },
+  "popupTitle": {
+    "message": "课程自动播放",
+    "description": "弹窗标题"
+  },
+  "popupSubtitle": {
+    "message": "自动切换下一节视频",
+    "description": "弹窗副标题"
+  },
+  "labelAutoplay": {
+    "message": "自动播放",
+    "description": "开关标签"
+  },
+  "labelStatus": {
+    "message": "状态",
+    "description": "状态标签"
+  },
+  "btnTest": {
+    "message": "测试：立即点击下一节",
+    "description": "测试按钮文字"
+  },
+  "statusChecking": {
+    "message": "检测中...",
+    "description": "初始状态"
+  },
+  "statusArmed": {
+    "message": "已启用",
+    "description": "自动播放已开启"
+  },
+  "statusStandby": {
+    "message": "待命",
+    "description": "自动播放已关闭"
+  },
+  "statusNoTab": {
+    "message": "无标签页",
+    "description": "未找到活动标签页"
+  },
+  "statusNotCoursePage": {
+    "message": "非课程页面",
+    "description": "当前不是课程页面"
+  },
+  "statusError": {
+    "message": "错误",
+    "description": "通用错误状态"
+  },
+  "statusInitError": {
+    "message": "初始化错误",
+    "description": "弹窗初始化失败"
+  },
+  "statusTesting": {
+    "message": "测试中...",
+    "description": "测试运行中"
+  },
+  "statusTestSent": {
+    "message": "测试已发送",
+    "description": "测试消息已发送"
+  },
+  "statusTestRetry": {
+    "message": "重试 $1/4",
+    "description": "测试重试状态，$1 为重试次数"
+  },
+  "statusTestFailed": {
+    "message": "失败——请刷新页面",
+    "description": "测试失败后的状态"
+  },
+  "overlayOn": {
+    "message": "自动播放已开启",
+    "description": "自动播放开启时的浮窗文字"
+  },
+  "overlayAdvancing": {
+    "message": "正在跳转...",
+    "description": "点击下一章节时的浮窗文字"
+  },
+  "overlayNotFound": {
+    "message": "未找到下一节按钮",
+    "description": "未找到下一节按钮时的浮窗文字"
+  }
+}

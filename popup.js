@@ -1,5 +1,7 @@
 // Course Autoplay Extension — Popup
 
+const _ = chrome.i18n.getMessage.bind(chrome.i18n);
+
 document.addEventListener('DOMContentLoaded', async () => {
   const toggleInput = document.getElementById('toggle-input');
   const switchLabel = document.getElementById('switch-label');
@@ -10,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (!tab) {
-      statusEl.textContent = 'no tab';
+      statusEl.textContent = _('statusNoTab');
       statusEl.className = 'status-value error';
       switchLabel.style.pointerEvents = 'none';
       switchLabel.style.opacity = '0.4';
@@ -21,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const isCoursePage = tab.url && tab.url.includes('mooc1.s.ecust.edu.cn/mooc-ans');
 
     if (!isCoursePage) {
-      statusEl.textContent = 'not on course page';
+      statusEl.textContent = _('statusNotCoursePage');
       statusEl.className = 'status-value error';
       switchLabel.style.pointerEvents = 'none';
       switchLabel.style.opacity = '0.4';
@@ -46,33 +48,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateUI(currentState);
       } catch (e) {
         console.error('Toggle failed:', e);
-        statusEl.textContent = 'error';
+        statusEl.textContent = _('statusError');
         statusEl.className = 'status-value error';
         toggleInput.checked = currentState;
       }
     });
 
     testBtn.addEventListener('click', async () => {
-      statusEl.textContent = 'testing...';
+      statusEl.textContent = _('statusTesting');
       statusEl.className = 'status-value';
       for (let i = 0; i < 5; i++) {
         try {
           await chrome.tabs.sendMessage(tabId, { type: 'TEST_CLICK_NEXT' });
-          statusEl.textContent = 'test sent';
+          statusEl.textContent = _('statusTestSent');
           statusEl.className = 'status-value active';
           setTimeout(() => {
             if (currentState) {
-              statusEl.textContent = 'armed';
+              statusEl.textContent = _('statusArmed');
               statusEl.className = 'status-value active';
             }
           }, 1500);
           return;
         } catch (e) {
           if (i < 4) {
-            statusEl.textContent = 'retry ' + (i + 1) + '/4';
+            statusEl.textContent = _('statusTestRetry', [(i + 1).toString()]);
             await new Promise(r => setTimeout(r, 500));
           } else {
-            statusEl.textContent = 'failed — refresh page';
+            statusEl.textContent = _('statusTestFailed');
             statusEl.className = 'status-value error';
           }
         }
@@ -82,12 +84,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     function updateUI(enabled) {
       toggleInput.checked = enabled;
       if (enabled) {
-        statusEl.textContent = 'armed';
+        statusEl.textContent = _('statusArmed');
         statusEl.className = 'status-value active';
         signalDot.classList.add('active');
         testBtn.style.display = 'block';
       } else {
-        statusEl.textContent = 'standby';
+        statusEl.textContent = _('statusStandby');
         statusEl.className = 'status-value';
         signalDot.classList.remove('active');
         testBtn.style.display = 'none';
@@ -95,7 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   } catch (e) {
     console.error('Popup initialization failed:', e);
-    statusEl.textContent = 'init error';
+    statusEl.textContent = _('statusInitError');
     statusEl.className = 'status-value error';
   }
 });
